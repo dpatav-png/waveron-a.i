@@ -1,6 +1,6 @@
 // ══════════════════════════════════════════════════════════════
 // SCRIPT.JS - WAVERON A.I CODEBOT EDITION
-// Created by Mr. Dhruv Patav
+// Created by Dhruv Patav & Jay Patil
 // Version: 3.1.3 (Payment System Added)
 // ══════════════════════════════════════════════════════════════
 
@@ -12,10 +12,7 @@ let limitResetTime = null;
 let countdownInterval = null;
 let currentPersonality = 'coder';
 let currentTheme = 'dark';
-let voiceOutputEnabled = true;
-let isRecording = false;
-let recognition = null;
-let synthesis = window.speechSynthesis;
+
 let landingPageActive = true;
 let freshStartOnReload = false;
 let alwaysShowLanding = false;
@@ -254,53 +251,10 @@ function createParticles() {
     }
 }
 
-function initVoiceRecognition() {
-    if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
-        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-        recognition = new SpeechRecognition();
-        recognition.continuous = false;
-        recognition.interimResults = false;
-        recognition.lang = 'en-US';
-        recognition.onresult = function (event) {
-            const transcript = event.results[0][0].transcript;
-            if (elements.userInput) elements.userInput.value = transcript;
-            adjustTextareaHeight();
-            stopRecording();
-        };
-        recognition.onerror = function () { stopRecording(); showToast('Voice recognition error.'); };
-        recognition.onend = function () { stopRecording(); };
-    }
-}
-
-function startRecording() {
-    if (recognition) {
-        isRecording = true;
-        recognition.start();
-        if (elements.voiceInputBtn) elements.voiceInputBtn.classList.add('recording');
-        if (elements.voiceRecording) elements.voiceRecording.classList.add('show');
-    } else {
-        showToast('Voice not supported.');
-    }
-}
-
-function stopRecording() {
-    isRecording = false;
-    if (recognition) recognition.stop();
-    if (elements.voiceInputBtn) elements.voiceInputBtn.classList.remove('recording');
-    if (elements.voiceRecording) elements.voiceRecording.classList.remove('show');
-}
-
-function speakText(text) {
-    if (voiceOutputEnabled && synthesis) {
-        let cleanText = text.replace(/```[\s\S]*?```/g, 'Code block omitted.');
-        cleanText = cleanText.replace(/`[^`]+`/g, '');
-        synthesis.cancel();
-        const utterance = new SpeechSynthesisUtterance(cleanText);
-        utterance.rate = CONFIG.VOICE_RATE;
-        utterance.pitch = CONFIG.VOICE_PITCH;
-        synthesis.speak(utterance);
-    }
-}
+function initVoiceRecognition() { /* Voice disabled */ }
+function startRecording() { }
+function stopRecording() { }
+function speakText(text) { /* Voice disabled */ }
 
 function setTheme(theme) {
     currentTheme = theme;
@@ -337,16 +291,10 @@ function loadSettings() {
     if (savedTheme) setTheme(savedTheme);
     const savedPersonality = localStorage.getItem('waveronAI_personality');
     setPersonality(savedPersonality || 'coder');
-    const savedVoice = localStorage.getItem('waveronAI_voiceOutput');
-    if (savedVoice !== null) { voiceOutputEnabled = savedVoice === 'true'; updateVoiceToggle(); }
+
 }
 
-function updateVoiceToggle() {
-    if (elements.voiceToggleBtn) {
-        elements.voiceToggleBtn.classList.toggle('active', voiceOutputEnabled);
-        elements.voiceToggleBtn.innerHTML = voiceOutputEnabled ? '<i class="fas fa-volume-up"></i>' : '<i class="fas fa-volume-mute"></i>';
-    }
-}
+function updateVoiceToggle() { }
 
 function openSettings() {
     if (elements.settingsModal) elements.settingsModal.classList.add('show');
@@ -412,9 +360,7 @@ function attachEventListeners() {
     if (elements.mobileMenuBtn) elements.mobileMenuBtn.addEventListener('click', toggleSidebar);
     document.querySelectorAll('.theme-btn').forEach(btn => btn.addEventListener('click', () => setTheme(btn.getAttribute('data-theme'))));
     document.querySelectorAll('.personality-btn').forEach(btn => btn.addEventListener('click', () => setPersonality(btn.getAttribute('data-personality'))));
-    if (elements.voiceInputBtn) elements.voiceInputBtn.addEventListener('click', () => { isRecording ? stopRecording() : startRecording(); });
-    if (elements.stopRecordingBtn) elements.stopRecordingBtn.addEventListener('click', stopRecording);
-    if (elements.voiceToggleBtn) elements.voiceToggleBtn.addEventListener('click', () => { voiceOutputEnabled = !voiceOutputEnabled; updateVoiceToggle(); localStorage.setItem('waveronAI_voiceOutput', voiceOutputEnabled); });
+
     document.querySelectorAll('.prompt-btn').forEach(btn => btn.addEventListener('click', () => { if (elements.userInput) { elements.userInput.value = btn.getAttribute('data-prompt'); adjustTextareaHeight(); elements.userInput.focus(); } }));
     document.addEventListener('keydown', function (e) {
         if (e.key === 'Escape') {
@@ -612,7 +558,7 @@ async function sendMessage() {
         incrementUsage();
         const aiTimestamp = new Date().toISOString();
         renderMessage('assistant', response, aiTimestamp);
-        if (voiceOutputEnabled) speakText(response);
+
         chats[currentChatId].messages.push({ role: 'assistant', content: response, timestamp: aiTimestamp });
         saveChatsToStorage();
     } catch (error) {
@@ -667,7 +613,7 @@ function renderMessage(role, content, timestamp, animate = true) {
     const actions = document.createElement('div');
     actions.className = 'message-actions';
     actions.innerHTML = role === 'assistant'
-        ? '<button class="message-action-btn copy-btn"><i class="fas fa-copy"></i> Copy</button><button class="message-action-btn speak-btn"><i class="fas fa-volume-up"></i> Read</button>'
+        ? '<button class="message-action-btn copy-btn"><i class="fas fa-copy"></i> Copy</button>'
         : '<button class="message-action-btn copy-btn"><i class="fas fa-copy"></i></button>';
     const time = document.createElement('div');
     time.className = 'message-time';
@@ -680,8 +626,7 @@ function renderMessage(role, content, timestamp, animate = true) {
     if (elements.messagesContainer) elements.messagesContainer.appendChild(messageDiv);
     const copyBtn = actions.querySelector('.copy-btn');
     if (copyBtn) copyBtn.addEventListener('click', () => { navigator.clipboard.writeText(content); showToast('Copied!'); });
-    const speakBtn = actions.querySelector('.speak-btn');
-    if (speakBtn) speakBtn.addEventListener('click', () => speakText(content));
+
 }
 
 function showTypingIndicator() {
