@@ -1,0 +1,3295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WAVERON A.I - CodeBot</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- EMBEDDED CSS -->
+    <style>
+/* ══════════════════════════════════════════════════════════════
+   WAVERON A.I - CODEBOT EDITION - ALL STYLES
+   ══════════════════════════════════════════════════════════════ */
+
+:root {
+    --bg-primary: #0a0a0f;
+    --bg-secondary: #12121a;
+    --bg-tertiary: #1a1a2e;
+    --bg-hover: #252542;
+    --bg-glass: rgba(18, 18, 26, 0.8);
+    --bg-glass-light: rgba(26, 26, 46, 0.6);
+    
+    --text-primary: #ffffff;
+    --text-secondary: #a0a0b0;
+    --text-muted: #6a6a7a;
+    
+    --border-color: rgba(255, 255, 255, 0.1);
+    --border-glow: rgba(99, 102, 241, 0.5);
+    
+    --accent-primary: #6366f1;
+    --accent-secondary: #8b5cf6;
+    --accent-tertiary: #06b6d4;
+    --accent-gradient: linear-gradient(135deg, #6366f1, #8b5cf6, #06b6d4);
+    --accent-glow: rgba(99, 102, 241, 0.4);
+    --accent-glow-strong: rgba(99, 102, 241, 0.6);
+    
+    --danger-color: #ef4444;
+    --warning-color: #f59e0b;
+    --success-color: #10b981;
+    
+    --glass-blur: blur(20px);
+    --glass-border: 1px solid rgba(255, 255, 255, 0.1);
+    
+    --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 10px 40px rgba(0, 0, 0, 0.4);
+    --shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.5);
+    --shadow-glow: 0 0 30px var(--accent-glow);
+    
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+    --radius-xl: 24px;
+    --radius-full: 9999px;
+    
+    --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-display: 'Space Grotesk', sans-serif;
+    --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+    
+    --transition-fast: 0.15s ease;
+    --transition-normal: 0.3s ease;
+    --transition-slow: 0.5s ease;
+}
+
+[data-theme="light"] {
+    --bg-primary: #f8fafc;
+    --bg-secondary: #ffffff;
+    --bg-tertiary: #f1f5f9;
+    --bg-hover: #e2e8f0;
+    --bg-glass: rgba(255, 255, 255, 0.9);
+    --text-primary: #0f172a;
+    --text-secondary: #475569;
+    --text-muted: #94a3b8;
+    --border-color: rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="ocean"] {
+    --bg-primary: #0c1222;
+    --bg-secondary: #111827;
+    --bg-tertiary: #1e293b;
+    --bg-hover: #334155;
+    --bg-glass: rgba(17, 24, 39, 0.85);
+    --text-secondary: #7dd3fc;
+    --accent-primary: #0ea5e9;
+    --accent-secondary: #06b6d4;
+    --accent-gradient: linear-gradient(135deg, #0ea5e9, #06b6d4, #22d3ee);
+}
+
+[data-theme="purple"] {
+    --bg-primary: #0f0a1a;
+    --bg-secondary: #1a1025;
+    --bg-tertiary: #2d1f42;
+    --bg-hover: #3d2a5c;
+    --bg-glass: rgba(26, 16, 37, 0.85);
+    --text-secondary: #c4b5fd;
+    --accent-primary: #a855f7;
+    --accent-secondary: #d946ef;
+    --accent-gradient: linear-gradient(135deg, #a855f7, #d946ef, #ec4899);
+}
+
+[data-theme="midnight"] {
+    --bg-primary: #020617;
+    --bg-secondary: #0f172a;
+    --bg-tertiary: #1e293b;
+    --bg-hover: #334155;
+    --bg-glass: rgba(15, 23, 42, 0.9);
+    --accent-primary: #3b82f6;
+    --accent-gradient: linear-gradient(135deg, #3b82f6, #6366f1, #8b5cf6);
+}
+
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-primary);
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    overflow-x: hidden;
+    min-height: 100vh;
+    line-height: 1.6;
+}
+
+::selection {
+    background: var(--accent-primary);
+    color: white;
+}
+
+/* Wave Background */
+.wave-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+    opacity: 0.6;
+}
+
+.wave {
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    top: -50%;
+    left: -50%;
+    background: radial-gradient(ellipse at center, transparent 0%, transparent 40%, var(--accent-primary) 40.5%, transparent 41%);
+    background-size: 60px 60px;
+    animation: waveRotate 30s linear infinite;
+    opacity: 0.15;
+}
+
+.wave-1 { animation-duration: 25s; }
+.wave-2 { animation-duration: 35s; animation-direction: reverse; opacity: 0.1; }
+.wave-3 { animation-duration: 45s; opacity: 0.08; }
+
+@keyframes waveRotate {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Particles */
+.particles {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.particle {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    background: var(--accent-primary);
+    border-radius: 50%;
+    opacity: 0;
+    animation: particleFloat 20s infinite;
+    box-shadow: 0 0 10px var(--accent-primary);
+}
+
+@keyframes particleFloat {
+    0% { transform: translateY(100vh) scale(0); opacity: 0; }
+    10% { opacity: 0.8; transform: translateY(80vh) scale(1); }
+    90% { opacity: 0.8; transform: translateY(10vh) scale(1); }
+    100% { transform: translateY(-10vh) scale(0); opacity: 0; }
+}
+
+/* Glow Orbs */
+.glow-orbs {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.3;
+    animation: orbFloat 20s ease-in-out infinite;
+}
+
+.orb-1 { width: 600px; height: 600px; background: var(--accent-primary); top: -200px; right: -200px; }
+.orb-2 { width: 500px; height: 500px; background: var(--accent-secondary); bottom: -150px; left: -150px; animation-delay: -7s; }
+.orb-3 { width: 400px; height: 400px; background: var(--accent-tertiary); top: 50%; left: 50%; transform: translate(-50%, -50%); animation-delay: -14s; opacity: 0.15; }
+
+@keyframes orbFloat {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    25% { transform: translate(50px, -30px) scale(1.1); }
+    50% { transform: translate(-30px, 50px) scale(0.9); }
+    75% { transform: translate(-50px, -20px) scale(1.05); }
+}
+
+/* Landing Page */
+.landing-page {
+    position: relative;
+    z-index: 10;
+    min-height: 100vh;
+}
+
+.landing-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 20px 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+    background: var(--bg-glass);
+    backdrop-filter: var(--glass-blur);
+    border-bottom: var(--glass-border);
+}
+
+.nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.nav-logo-icon {
+    position: relative;
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--accent-gradient);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-glow);
+}
+
+.logo-w-text {
+    font-family: var(--font-mono);
+    font-size: 16px;
+    font-weight: 700;
+    color: white;
+}
+
+.logo-glow {
+    position: absolute;
+    inset: -2px;
+    background: var(--accent-gradient);
+    border-radius: var(--radius-md);
+    opacity: 0.5;
+    filter: blur(10px);
+    z-index: -1;
+}
+
+.nav-logo-text {
+    font-family: var(--font-display);
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.ai-text {
+    background: var(--accent-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.codebot-badge {
+    background: var(--accent-gradient);
+    padding: 4px 12px;
+    border-radius: var(--radius-full);
+    font-size: 10px;
+    font-weight: 700;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-left: 10px;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+}
+
+.nav-link {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 500;
+    transition: color var(--transition-fast);
+}
+
+.nav-link:hover {
+    color: var(--text-primary);
+}
+
+.nav-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    background: var(--accent-gradient);
+    border: none;
+    border-radius: var(--radius-full);
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--transition-normal);
+    box-shadow: var(--shadow-glow);
+}
+
+.nav-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 40px var(--accent-glow-strong);
+}
+
+/* Hero Section */
+.hero-section {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 120px 20px 60px;
+    position: relative;
+}
+
+.hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 20px;
+    background: var(--bg-glass);
+    backdrop-filter: var(--glass-blur);
+    border: var(--glass-border);
+    border-radius: var(--radius-full);
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-bottom: 30px;
+    animation: fadeInUp 0.8s ease;
+}
+
+.hero-badge i {
+    color: var(--accent-primary);
+}
+
+.hero-title {
+    font-family: var(--font-display);
+    font-size: clamp(48px, 10vw, 80px);
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 25px;
+    animation: fadeInUp 0.8s ease 0.1s backwards;
+}
+
+.title-line {
+    display: block;
+    color: var(--text-primary);
+}
+
+.title-gradient {
+    display: block;
+    background: var(--accent-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.hero-subtitle {
+    font-size: 18px;
+    color: var(--text-secondary);
+    max-width: 600px;
+    margin: 0 auto 40px;
+    line-height: 1.7;
+    animation: fadeInUp 0.8s ease 0.2s backwards;
+}
+
+.hero-subtitle strong {
+    color: var(--accent-primary);
+}
+
+.hero-cta {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 60px;
+    animation: fadeInUp 0.8s ease 0.3s backwards;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.cta-primary {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 16px 32px;
+    background: var(--accent-gradient);
+    border: none;
+    border-radius: var(--radius-lg);
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--transition-normal);
+    box-shadow: var(--shadow-glow);
+}
+
+.cta-primary:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 20px 50px var(--accent-glow-strong);
+}
+
+.cta-secondary {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 16px 32px;
+    background: var(--bg-glass);
+    backdrop-filter: var(--glass-blur);
+    border: var(--glass-border);
+    border-radius: var(--radius-lg);
+    color: var(--text-primary);
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--transition-normal);
+}
+
+.cta-secondary:hover {
+    background: var(--bg-hover);
+    transform: translateY(-3px);
+}
+
+.hero-stats {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    padding: 25px 50px;
+    background: var(--bg-glass);
+    backdrop-filter: var(--glass-blur);
+    border: var(--glass-border);
+    border-radius: var(--radius-xl);
+    animation: fadeInUp 0.8s ease 0.4s backwards;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.stat {
+    text-align: center;
+}
+
+.stat-number {
+    display: block;
+    font-family: var(--font-display);
+    font-size: 32px;
+    font-weight: 700;
+    background: var(--accent-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.stat-label {
+    font-size: 13px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.stat-divider {
+    width: 1px;
+    height: 40px;
+    background: var(--border-color);
+}
+
+/* Code Preview */
+.code-preview {
+    position: relative;
+    width: 90%;
+    max-width: 700px;
+    margin-top: 60px;
+    background: var(--bg-glass);
+    backdrop-filter: var(--glass-blur);
+    border: var(--glass-border);
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    box-shadow: var(--shadow-lg), var(--shadow-glow);
+    animation: fadeInUp 0.8s ease 0.5s backwards;
+}
+
+.preview-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px 20px;
+    background: var(--bg-secondary);
+    border-bottom: var(--glass-border);
+}
+
+.preview-dots {
+    display: flex;
+    gap: 6px;
+}
+
+.preview-dots span {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+}
+
+.preview-dots span:first-child { background: #ef4444; }
+.preview-dots span:nth-child(2) { background: #f59e0b; }
+.preview-dots span:last-child { background: #10b981; }
+
+.preview-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+.preview-messages {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.preview-msg {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+}
+
+.preview-msg.user {
+    justify-content: flex-end;
+}
+
+.preview-msg.user span {
+    background: var(--accent-gradient);
+    color: white;
+    padding: 12px 18px;
+    border-radius: var(--radius-lg);
+    font-size: 14px;
+}
+
+.ai-avatar {
+    width: 35px;
+    height: 35px;
+    background: var(--accent-gradient);
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    color: white;
+    font-size: 12px;
+    font-family: var(--font-mono);
+    flex-shrink: 0;
+}
+
+.code-response {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex: 1;
+}
+
+.response-text {
+    font-size: 14px;
+    color: var(--text-primary);
+    background: var(--bg-tertiary);
+    padding: 12px 18px;
+    border-radius: var(--radius-lg);
+}
+
+.preview-code {
+    background: var(--bg-primary);
+    padding: 15px;
+    border-radius: var(--radius-md);
+    overflow-x: auto;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--accent-tertiary);
+    margin: 0;
+    border: var(--glass-border);
+}
+
+.preview-input {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 20px;
+    background: var(--bg-tertiary);
+    border-top: var(--glass-border);
+    color: var(--text-muted);
+    font-size: 14px;
+}
+
+.preview-input i {
+    color: var(--accent-primary);
+}
+
+/* Features Section */
+.features-section {
+    padding: 100px 60px;
+    position: relative;
+}
+
+.section-title {
+    font-family: var(--font-display);
+    font-size: 42px;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.title-accent {
+    background: var(--accent-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.feature-card {
+    background: var(--bg-glass);
+    backdrop-filter: var(--glass-blur);
+    border: var(--glass-border);
+    border-radius: var(--radius-xl);
+    padding: 35px;
+    transition: all var(--transition-normal);
+    position: relative;
+    overflow: hidden;
+}
+
+.feature-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--accent-gradient);
+    opacity: 0;
+    transition: opacity var(--transition-normal);
+}
+
+.feature-card:hover {
+    transform: translateY(-8px);
+    border-color: var(--border-glow);
+    box-shadow: var(--shadow-glow);
+}
+
+.feature-card:hover::before {
+    opacity: 1;
+}
+
+.feature-icon {
+    width: 60px;
+    height: 60px;
+    background: var(--accent-gradient);
+    border-radius: var(--radius-lg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    color: white;
+    margin-bottom: 20px;
+    box-shadow: var(--shadow-glow);
+}
+
+.feature-card h3 {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 12px;
+}
+
+.feature-card p {
+    color: var(--text-secondary);
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+/* Languages Section */
+.languages-section {
+    padding: 80px 60px;
+    text-align: center;
+}
+
+.languages-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.lang-tag {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 22px;
+    background: var(--bg-glass);
+    backdrop-filter: var(--glass-blur);
+    border: var(--glass-border);
+    border-radius: var(--radius-full);
+    font-size: 14px;
+    color: var(--text-secondary);
+    transition: all var(--transition-normal);
+}
+
+.lang-tag:hover {
+    border-color: var(--accent-primary);
+    color: var(--accent-primary);
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-glow);
+}
+
+.lang-tag i {
+    font-size: 18px;
+}
+
+/* Notice Section */
+.notice-section {
+    padding: 40px 60px;
+}
+
+.notice-card {
+    max-width: 800px;
+    margin: 0 auto;
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 25px 30px;
+    background: rgba(245, 158, 11, 0.1);
+    border: 2px solid var(--warning-color);
+    border-radius: var(--radius-xl);
+}
+
+.notice-icon {
+    width: 50px;
+    height: 50px;
+    background: var(--warning-color);
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.notice-icon i {
+    font-size: 24px;
+    color: white;
+}
+
+.notice-content h3 {
+    font-size: 18px;
+    margin-bottom: 8px;
+    color: var(--warning-color);
+}
+
+.notice-content p {
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+}
+
+/* About Section */
+.about-section {
+    padding: 100px 60px;
+    text-align: center;
+}
+
+.about-content {
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.about-text {
+    font-size: 18px;
+    color: var(--text-secondary);
+    line-height: 1.8;
+    margin-bottom: 40px;
+}
+
+.about-text strong {
+    color: var(--accent-primary);
+}
+
+.tech-stack {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+}
+
+.tech-tag {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    background: var(--bg-glass);
+    backdrop-filter: var(--glass-blur);
+    border: var(--glass-border);
+    border-radius: var(--radius-full);
+    font-size: 14px;
+    color: var(--text-secondary);
+    transition: all var(--transition-normal);
+}
+
+.tech-tag:hover {
+    border-color: var(--accent-primary);
+    color: var(--accent-primary);
+}
+
+/* Landing Footer */
+.landing-footer {
+    padding: 30px 60px;
+    text-align: center;
+    border-top: var(--glass-border);
+    color: var(--text-muted);
+    font-size: 14px;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* App Container */
+.app-container {
+    display: none;
+    position: relative;
+    z-index: 10;
+}
+
+.app-container.active {
+    display: block;
+}
+
+.container {
+    display: flex;
+    height: 100vh;
+    width: 100%;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 320px;
+    background: var(--bg-glass);
+    backdrop-filter: var(--glass-blur);
+    border-right: var(--glass-border);
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.sidebar-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 25px;
+    padding-bottom: 20px;
+    border-bottom: var(--glass-border);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.logo-w-container {
+    position: relative;
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logo-w {
+    font-family: var(--font-mono);
+    font-size: 16px;
+    font-weight: 800;
+    background: var(--accent-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.wave-effect {
+    position: absolute;
+    inset: 0;
+    border: 2px solid var(--accent-primary);
+    border-radius: 50%;
+    animation: waveRipple 2s ease-out infinite;
+    opacity: 0;
+}
+
+@keyframes waveRipple {
+    0% { transform: scale(0.8); opacity: 0.6; }
+    100% { transform: scale(1.5); opacity: 0; }
+}
+
+.logo-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.2;
+}
+
+.logo-name {
+    font-family: var(--font-display);
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.logo-ai {
+    font-size: 12px;
+    background: var(--accent-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 600;
+}
+
+.version-badge {
+    background: var(--accent-gradient);
+    padding: 5px 12px;
+    border-radius: var(--radius-full);
+    font-size: 10px;
+    font-weight: 700;
+    color: white;
+}
+
+.new-chat-btn {
+    width: 100%;
+    padding: 14px 20px;
+    background: var(--accent-gradient);
+    border: none;
+    border-radius: var(--radius-lg);
+    color: white;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: all var(--transition-normal);
+    box-shadow: var(--shadow-glow);
+    margin-bottom: 10px;
+}
+
+.new-chat-btn:hover {
+    transform: translateY(-2px);
+}
+
+.fresh-start-btn {
+    width: 100%;
+    padding: 12px 20px;
+    background: transparent;
+    border: 2px dashed var(--border-color);
+    border-radius: var(--radius-lg);
+    color: var(--text-secondary);
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: all var(--transition-normal);
+    margin-bottom: 20px;
+}
+
+.fresh-start-btn:hover {
+    border-color: var(--warning-color);
+    color: var(--warning-color);
+    background: rgba(245, 158, 11, 0.1);
+}
+
+.fresh-start-btn:hover i {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.sidebar-section {
+    margin-bottom: 20px;
+}
+
+.section-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+}
+
+.section-label i {
+    font-size: 14px;
+    color: var(--accent-primary);
+}
+
+.personality-options {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 8px;
+}
+
+.personality-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    padding: 10px 5px;
+    background: var(--bg-tertiary);
+    border: var(--glass-border);
+    border-radius: var(--radius-md);
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all var(--transition-normal);
+    font-size: 10px;
+}
+
+.personality-btn i {
+    font-size: 16px;
+}
+
+.personality-btn:hover {
+    background: var(--bg-hover);
+    color: var(--text-primary);
+}
+
+.personality-btn.active {
+    background: var(--accent-gradient);
+    color: white;
+    border-color: transparent;
+}
+
+.search-container {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.search-icon {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-muted);
+    font-size: 14px;
+}
+
+.search-input {
+    width: 100%;
+    padding: 12px 15px 12px 42px;
+    background: var(--bg-tertiary);
+    border: var(--glass-border);
+    border-radius: var(--radius-lg);
+    color: var(--text-primary);
+    font-size: 14px;
+    outline: none;
+}
+
+.search-input:focus {
+    border-color: var(--accent-primary);
+}
+
+.search-input::placeholder {
+    color: var(--text-muted);
+}
+
+.history-section {
+    flex: 1;
+    overflow-y: auto;
+    margin-bottom: 20px;
+}
+
+.chat-history {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.history-item {
+    padding: 14px 16px;
+    background: var(--bg-tertiary);
+    border: var(--glass-border);
+    border-radius: var(--radius-lg);
+    cursor: pointer;
+    transition: all var(--transition-normal);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.history-item:hover {
+    background: var(--bg-hover);
+    transform: translateX(5px);
+}
+
+.history-item.active {
+    background: var(--bg-hover);
+    border-color: var(--accent-primary);
+}
+
+.history-item-text {
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.history-item-date {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-top: 4px;
+}
+
+.delete-history-btn {
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    padding: 5px;
+    font-size: 12px;
+    opacity: 0;
+    transition: all var(--transition-fast);
+}
+
+.history-item:hover .delete-history-btn {
+    opacity: 1;
+}
+
+.delete-history-btn:hover {
+    color: var(--danger-color);
+}
+
+.theme-options {
+    display: flex;
+    gap: 8px;
+}
+
+.theme-btn {
+    flex: 1;
+    padding: 12px;
+    background: var(--bg-tertiary);
+    border: var(--glass-border);
+    border-radius: var(--radius-md);
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all var(--transition-normal);
+    font-size: 16px;
+}
+
+.theme-btn:hover {
+    background: var(--bg-hover);
+    color: var(--text-primary);
+}
+
+.theme-btn.active {
+    background: var(--accent-gradient);
+    color: white;
+    border-color: transparent;
+}
+
+.settings-btn {
+    width: 100%;
+    padding: 14px;
+    background: var(--bg-tertiary);
+    border: var(--glass-border);
+    border-radius: var(--radius-lg);
+    color: var(--text-primary);
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.settings-btn:hover {
+    background: var(--bg-hover);
+}
+
+.sidebar-footer {
+    padding-top: 15px;
+    border-top: var(--glass-border);
+    text-align: center;
+}
+
+.footer-brand {
+    font-family: var(--font-display);
+    font-size: 14px;
+    font-weight: 600;
+    background: var(--accent-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.footer-tagline {
+    font-size: 10px;
+    color: var(--accent-primary);
+    margin-top: 2px;
+    text-transform: uppercase;
+}
+
+.footer-credit {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-top: 4px;
+}
+
+/* Main Content */
+.main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background: transparent;
+    position: relative;
+    overflow: hidden;
+}
+
+.mobile-menu-btn {
+    display: none;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background: var(--bg-glass);
+    backdrop-filter: var(--glass-blur);
+    border: var(--glass-border);
+    color: var(--text-primary);
+    padding: 12px 14px;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    z-index: 100;
+}
+
+.chat-header {
+    padding: 18px 25px;
+    background: var(--bg-glass);
+    backdrop-filter: var(--glass-blur);
+    border-bottom: var(--glass-border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.header-avatar {
+    width: 45px;
+    height: 45px;
+    background: var(--accent-gradient);
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-mono);
+    font-size: 14px;    font-weight: 700;
+    color: white;
+}
+
+.header-info h2 {
+    font-size: 17px;
+    font-weight: 600;
+}
+
+.header-status {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: var(--text-muted);
+}
+
+.status-dot {
+    width: 8px;
+    height: 8px;
+    background: var(--success-color);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+.header-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.icon-btn {
+    background: var(--bg-tertiary);
+    border: var(--glass-border);
+    color: var(--text-primary);
+    padding: 10px 12px;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all var(--transition-normal);
+    font-size: 14px;
+}
+
+.icon-btn:hover {
+    background: var(--bg-hover);
+    transform: scale(1.05);
+}
+
+.icon-btn.active {
+    background: var(--accent-gradient);
+    color: white;
+}
+
+.search-chat-bar {
+    display: none;
+    padding: 12px 25px;
+    background: var(--bg-glass);
+    backdrop-filter: var(--glass-blur);
+    border-bottom: var(--glass-border);
+    align-items: center;
+    gap: 12px;
+}
+
+.search-chat-bar.show {
+    display: flex;
+}
+
+.search-chat-bar input {
+    flex: 1;
+    padding: 10px 15px;
+    background: var(--bg-tertiary);
+    border: var(--glass-border);
+    border-radius: var(--radius-md);
+    color: var(--text-primary);
+    outline: none;
+    font-size: 14px;
+}
+
+.search-chat-bar span {
+    color: var(--text-muted);
+    font-size: 12px;
+}
+
+.search-chat-bar button {
+    background: var(--bg-tertiary);
+    border: var(--glass-border);
+    color: var(--text-primary);
+    padding: 8px 12px;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+}
+
+.chat-container {
+    flex: 1;
+    overflow-y: auto;
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Welcome Screen */
+.welcome-screen {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+.welcome-content {
+    text-align: center;
+    max-width: 800px;
+    padding: 40px;
+}
+
+.welcome-logo-container {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 30px;
+}
+
+.welcome-logo-w {
+    font-family: var(--font-mono);
+    font-size: 80px;
+    font-weight: 800;
+    background: var(--accent-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: floatLogo 4s ease-in-out infinite;
+}
+
+.welcome-wave-effect {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 150px;
+    height: 150px;
+    border: 3px solid var(--accent-primary);
+    border-radius: 50%;
+    animation: waveRipple 2s ease-out infinite;
+    opacity: 0;
+}
+
+.welcome-wave-effect.delay-1 { animation-delay: 0.5s; }
+.welcome-wave-effect.delay-2 { animation-delay: 1s; }
+
+@keyframes floatLogo {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
+}
+
+.welcome-title {
+    font-family: var(--font-display);
+    font-size: 42px;
+    font-weight: 700;
+    margin-bottom: 12px;
+}
+
+.gradient-text {
+    background: var(--accent-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.welcome-subtitle {
+    font-size: 20px;
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+}
+
+.founder-credit {
+    font-size: 14px;
+    color: var(--text-muted);
+    margin-bottom: 35px;
+}
+
+.features-row {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+}
+
+.feature-pill {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 22px;
+    background: var(--bg-glass);
+    backdrop-filter: var(--glass-blur);
+    border: var(--glass-border);
+    border-radius: var(--radius-full);
+}
+
+.feature-pill:hover {
+    border-color: var(--accent-primary);
+    transform: translateY(-3px);
+}
+
+.feature-pill i {
+    color: var(--accent-primary);
+    font-size: 16px;
+}
+
+.feature-pill span {
+    font-size: 14px;
+    color: var(--text-secondary);
+}
+
+.coder-notice {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 15px 25px;
+    background: rgba(99, 102, 241, 0.1);
+    border: 1px solid var(--accent-primary);
+    border-radius: var(--radius-lg);
+    margin-bottom: 40px;
+    font-size: 13px;
+    color: var(--text-secondary);
+    flex-wrap: wrap;
+}
+
+.coder-notice i {
+    color: var(--accent-primary);
+    font-size: 18px;
+}
+
+.coder-notice strong {
+    color: var(--accent-primary);
+}
+
+.suggested-prompts h3 {
+    font-size: 14px;
+    color: var(--text-muted);
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.prompts-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+}
+
+.prompt-btn {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 18px 22px;
+    background: var(--bg-glass);
+    backdrop-filter: var(--glass-blur);
+    border: var(--glass-border);
+    border-radius: var(--radius-lg);
+    color: var(--text-primary);
+    cursor: pointer;
+    transition: all var(--transition-normal);
+    text-align: left;
+}
+
+.prompt-btn:hover {
+    background: var(--bg-hover);
+    border-color: var(--accent-primary);
+    transform: translateY(-4px);
+}
+
+.prompt-btn > i {
+    width: 45px;
+    height: 45px;
+    background: var(--accent-gradient);
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    color: white;
+    flex-shrink: 0;
+}
+
+.prompt-text {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.prompt-title {
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.prompt-desc {
+    font-size: 12px;
+    color: var(--text-muted);
+}
+
+.prompt-arrow {
+    color: var(--text-muted);
+    font-size: 14px;
+}
+
+.prompt-btn:hover .prompt-arrow {
+    transform: translateX(5px);
+    color: var(--accent-primary);
+}
+
+/* Messages */
+.messages {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.date-separator {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 25px 0;
+}
+
+.date-separator span {
+    background: var(--bg-glass);
+    backdrop-filter: var(--glass-blur);
+    padding: 8px 20px;
+    border-radius: var(--radius-full);
+    font-size: 12px;
+    color: var(--text-muted);
+    border: var(--glass-border);
+}
+
+.message {
+    display: flex;
+    gap: 15px;
+    max-width: 80%;
+    animation: messageSlide 0.4s ease;
+}
+
+@keyframes messageSlide {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.message.user {
+    align-self: flex-end;
+    flex-direction: row-reverse;
+}
+
+.message-avatar {
+    width: 42px;
+    height: 42px;
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.message.assistant .message-avatar {
+    background: var(--accent-gradient);
+    color: white;
+}
+
+.message.user .message-avatar {
+    background: var(--bg-tertiary);
+    border: var(--glass-border);
+    color: var(--text-primary);
+}
+
+.message-avatar-w {
+    font-family: var(--font-mono);
+    font-size: 14px;
+}
+
+.message-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.message-content {
+    background: var(--bg-glass);
+    backdrop-filter: var(--glass-blur);
+    padding: 18px 22px;
+    border-radius: var(--radius-lg);
+    border: var(--glass-border);
+    line-height: 1.7;
+    font-size: 15px;
+}
+
+.message.user .message-content {
+    background: var(--accent-gradient);
+    border: none;
+    color: white;
+}
+
+.message-actions {
+    display: flex;
+    gap: 6px;
+    opacity: 0;
+    transition: opacity var(--transition-fast);
+    flex-wrap: wrap;
+}
+
+.message:hover .message-actions {
+    opacity: 1;
+}
+
+.message-action-btn {
+    background: var(--bg-tertiary);
+    border: var(--glass-border);
+    color: var(--text-muted);
+    padding: 6px 12px;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.message-action-btn:hover {
+    background: var(--bg-hover);
+    color: var(--text-primary);
+}
+
+.copy-code-btn {
+    background: var(--accent-primary) !important;
+    color: white !important;
+}
+
+.message-time {
+    font-size: 11px;
+    color: var(--text-muted);
+}
+
+.typing-indicator {
+    display: flex;
+    gap: 6px;
+    padding: 5px 0;
+}
+
+.typing-dot {
+    width: 8px;
+    height: 8px;
+    background: var(--accent-primary);
+    border-radius: 50%;
+    animation: typingBounce 1.4s infinite;
+}
+
+.typing-dot:nth-child(2) { animation-delay: 0.2s; }
+.typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes typingBounce {
+    0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+    30% { transform: translateY(-10px); opacity: 1; }
+}
+
+/* Code Blocks */
+.code-block {
+    position: relative;
+    background: var(--bg-primary);
+    border: var(--glass-border);
+    border-radius: var(--radius-md);
+    padding: 20px;
+    margin: 15px 0;
+    overflow-x: auto;
+}
+
+.code-block::before {
+    content: attr(data-language);
+    position: absolute;
+    top: 8px;
+    right: 12px;
+    font-size: 10px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    background: var(--bg-tertiary);
+    padding: 3px 10px;
+    border-radius: var(--radius-sm);
+}
+
+.code-block code {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--accent-tertiary);
+}
+
+.message-content pre {
+    background: var(--bg-primary);
+    padding: 18px;
+    border-radius: var(--radius-md);
+    overflow-x: auto;
+    margin: 12px 0;
+    border: var(--glass-border);
+}
+
+.message-content pre code {
+    color: var(--accent-tertiary);
+}
+
+.inline-code {
+    background: var(--bg-tertiary);
+    padding: 3px 8px;
+    border-radius: var(--radius-sm);
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--accent-primary);
+}
+
+/* Input Area */
+.input-area {
+    padding: 20px 25px;
+    background: var(--bg-glass);
+    backdrop-filter: var(--glass-blur);
+    border-top: var(--glass-border);
+}
+
+.input-container {
+    display: flex;
+    gap: 12px;
+    align-items: flex-end;
+    background: var(--bg-tertiary);
+    border: var(--glass-border);
+    border-radius: var(--radius-xl);
+    padding: 12px 18px;
+}
+
+.input-container:focus-within {
+    border-color: var(--accent-primary);
+    box-shadow: 0 0 0 3px var(--accent-glow);
+}
+
+.voice-input-btn {
+    background: var(--bg-hover);
+    border: var(--glass-border);
+    color: var(--text-primary);
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 16px;
+}
+
+.voice-input-btn:hover {
+    background: var(--accent-primary);
+    color: white;
+}
+
+.voice-input-btn.recording {
+    background: var(--danger-color);
+    color: white;
+    animation: recordingPulse 1s infinite;
+}
+
+@keyframes recordingPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+.user-input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    color: var(--text-primary);
+    font-size: 15px;
+    outline: none;
+    resize: none;
+    max-height: 150px;
+    font-family: var(--font-primary);
+    line-height: 1.5;
+    padding: 10px 0;
+}
+
+.user-input::placeholder {
+    color: var(--text-muted);
+}
+
+.send-btn {
+    background: var(--accent-gradient);
+    border: none;
+    width: 48px;
+    height: 48px;
+    border-radius: var(--radius-lg);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: white;
+    font-size: 18px;
+}
+
+.send-btn:hover {
+    transform: scale(1.1);
+}
+
+.send-btn:disabled {
+    background: var(--bg-hover);
+    color: var(--text-muted);
+    cursor: not-allowed;
+    transform: none;
+}
+
+.input-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 12px;
+    padding: 0 5px;
+}
+
+.input-info {
+    font-size: 12px;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.groq-badge {
+    background: var(--accent-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 600;
+}
+
+.keyboard-hints {
+    display: flex;
+    gap: 20px;
+}
+
+.keyboard-hints span {
+    font-size: 11px;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.keyboard-hints kbd {
+    background: var(--bg-tertiary);
+    padding: 3px 8px;
+    border-radius: var(--radius-sm);
+    font-size: 10px;
+    border: var(--glass-border);
+}
+
+/* Modals */
+.settings-modal, .blocked-modal, .limit-modal, .shortcuts-modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(10px);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+    padding: 20px;
+}
+
+.settings-modal.show, .blocked-modal.show, .limit-modal.show, .shortcuts-modal.show {
+    display: flex;
+}
+
+.settings-content, .blocked-modal-content, .limit-modal-content, .shortcuts-content {
+    background: var(--bg-secondary);
+    border: var(--glass-border);
+    border-radius: var(--radius-xl);
+    max-width: 550px;
+    width: 100%;
+    max-height: 90vh;
+    overflow: hidden;
+    animation: modalSlide 0.3s ease;
+}
+
+@keyframes modalSlide {
+    from { opacity: 0; transform: translateY(-30px) scale(0.95); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.settings-header, .shortcuts-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 25px 30px;
+    border-bottom: var(--glass-border);
+}
+
+.settings-header h2, .shortcuts-header h2 {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 20px;
+}
+
+.settings-header h2 i, .shortcuts-header h2 i {
+    color: var(--accent-primary);
+}
+
+.close-settings, .close-shortcuts {
+    background: var(--bg-tertiary);
+    border: var(--glass-border);
+    color: var(--text-primary);
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.close-settings:hover, .close-shortcuts:hover {
+    color: var(--danger-color);
+}
+
+.settings-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 25px 30px;
+}
+
+.settings-group {
+    margin-bottom: 30px;
+}
+
+.settings-group-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 18px;
+    text-transform: uppercase;
+}
+
+.settings-group-title i {
+    color: var(--accent-primary);
+}
+
+.setting-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.setting-item:last-child {
+    border-bottom: none;
+}
+
+.setting-label {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.setting-desc {
+    font-size: 12px;
+    color: var(--text-muted);
+}
+
+.setting-select {
+    background: var(--bg-tertiary);
+    border: var(--glass-border);
+    border-radius: var(--radius-md);
+    padding: 10px 15px;
+    color: var(--text-primary);
+    font-size: 13px;
+    outline: none;
+    cursor: pointer;
+    min-width: 150px;
+}
+
+.slider-container {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.setting-slider {
+    width: 120px;
+    height: 6px;
+    appearance: none;
+    background: var(--bg-tertiary);
+    border-radius: var(--radius-full);
+    outline: none;
+}
+
+.setting-slider::-webkit-slider-thumb {
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    background: var(--accent-gradient);
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.slider-value {
+    font-size: 13px;
+    color: var(--accent-primary);
+    font-weight: 600;
+    min-width: 40px;
+}
+
+.toggle-switch {
+    position: relative;
+    width: 52px;
+    height: 28px;
+    cursor: pointer;
+}
+
+.toggle-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.toggle-slider {
+    position: absolute;
+    inset: 0;
+    background: var(--bg-tertiary);
+    border-radius: var(--radius-full);
+    border: var(--glass-border);
+}
+
+.toggle-slider::before {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    left: 4px;
+    bottom: 4px;
+    background: var(--text-muted);
+    border-radius: 50%;
+    transition: all var(--transition-normal);
+}
+
+.toggle-switch input:checked + .toggle-slider {
+    background: var(--accent-gradient);
+}
+
+.toggle-switch input:checked + .toggle-slider::before {
+    transform: translateX(24px);
+    background: white;
+}
+
+.danger-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 24px;
+    background: transparent;
+    border: 2px solid var(--danger-color);
+    border-radius: var(--radius-md);
+    color: var(--danger-color);
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.danger-btn:hover {
+    background: var(--danger-color);
+    color: white;
+}
+
+.settings-footer {
+    padding: 20px 30px;
+    border-top: var(--glass-border);
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 12px;
+}
+
+/* Blocked Modal */
+.blocked-modal-content {
+    padding: 50px;
+    text-align: center;
+}
+
+.blocked-modal-icon {
+    width: 90px;
+    height: 90px;
+    background: rgba(239, 68, 68, 0.1);
+    border: 3px solid var(--danger-color);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 25px;
+}
+
+.blocked-modal-icon i {
+    font-size: 40px;
+    color: var(--danger-color);
+}
+
+.blocked-modal-content h2 {
+    font-size: 24px;
+    margin-bottom: 15px;
+    color: var(--danger-color);
+}
+
+.blocked-modal-content p {
+    font-size: 15px;
+    color: var(--text-secondary);
+    margin-bottom: 10px;
+    line-height: 1.6;
+}
+
+.supported-topics {
+    background: var(--bg-tertiary);
+    padding: 20px;
+    border-radius: var(--radius-lg);
+    margin: 25px 0;
+    text-align: left;
+}
+
+.supported-topics h4 {
+    font-size: 14px;
+    color: var(--success-color);
+    margin-bottom: 15px;
+}
+
+.topics-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+}
+
+.topics-list span {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: var(--text-secondary);
+}
+
+.topics-list i {
+    color: var(--success-color);
+}
+
+.blocked-modal-btn, .limit-modal-btn {
+    background: var(--accent-gradient);
+    border: none;
+    padding: 15px 35px;
+    border-radius: var(--radius-lg);
+    font-size: 15px;
+    font-weight: 600;
+    color: white;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.blocked-modal-btn:hover, .limit-modal-btn:hover {
+    transform: scale(1.05);
+}
+
+/* Limit Modal */
+.limit-modal-content {
+    padding: 50px;
+    text-align: center;
+}
+
+.limit-modal-icon {
+    width: 100px;
+    height: 100px;
+    background: var(--bg-tertiary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 25px;
+    border: 3px solid var(--danger-color);
+}
+
+.limit-modal-icon i {
+    font-size: 45px;
+    color: var(--danger-color);
+}
+
+.limit-modal-content h2 {
+    font-size: 26px;
+    margin-bottom: 15px;
+}
+
+.limit-modal-content p {
+    font-size: 15px;
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+}
+
+.limit-timer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin: 30px 0;
+    padding: 22px;
+    background: var(--bg-tertiary);
+    border-radius: var(--radius-lg);
+}
+
+.limit-timer i {
+    font-size: 26px;
+    color: var(--warning-color);
+}
+
+#countdownTimer {
+    font-family: var(--font-mono);
+    font-size: 38px;
+    font-weight: 700;
+    background: var(--accent-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Usage Counter */
+.usage-counter {
+    position: fixed;
+    bottom: 100px;
+    right: 25px;
+    background: var(--bg-glass);
+    backdrop-filter: var(--glass-blur);
+    border: var(--glass-border);
+    border-radius: var(--radius-full);
+    padding: 12px 22px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    z-index: 100;
+}
+
+.usage-counter i {
+    color: var(--accent-primary);
+}
+
+.usage-counter.warning {
+    border-color: var(--warning-color);
+}
+
+.usage-counter.warning i {
+    color: var(--warning-color);
+}
+
+.usage-counter.danger {
+    border-color: var(--danger-color);
+    animation: dangerPulse 1s infinite;
+}
+
+.usage-counter.danger i {
+    color: var(--danger-color);
+}
+
+@keyframes dangerPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+.limit-popup {
+    position: fixed;
+    top: 25px;
+    right: 25px;
+    background: var(--bg-glass);
+    backdrop-filter: var(--glass-blur);
+    border: 2px solid var(--warning-color);
+    border-radius: var(--radius-xl);
+    padding: 20px 28px;
+    z-index: 1000;
+    display: none;
+    animation: slideInRight 0.4s ease;
+}
+
+.limit-popup.show {
+    display: block;
+}
+
+@keyframes slideInRight {
+    from { transform: translateX(100%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+.limit-popup-content {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+.limit-icon {
+    width: 55px;
+    height: 55px;
+    background: var(--bg-hover);
+    border-radius: var(--radius-lg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.limit-icon i {
+    font-size: 26px;
+    color: var(--warning-color);
+}
+
+.limit-text span:first-child {
+    font-size: 12px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+}
+
+.limit-count {
+    font-family: var(--font-display);
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--warning-color);
+}
+
+/* Shortcuts Modal */
+.shortcuts-list {
+    padding: 20px 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.shortcut-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+    background: var(--bg-tertiary);
+    border-radius: var(--radius-md);
+}
+
+.shortcut-item kbd {
+    background: var(--bg-primary);
+    padding: 6px 14px;
+    border-radius: var(--radius-sm);
+    font-size: 12px;
+    border: var(--glass-border);
+}
+
+.shortcut-item span {
+    color: var(--text-secondary);
+    font-size: 14px;
+}
+
+/* Toast */
+.toast {
+    position: fixed;
+    bottom: 35px;
+    left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    background: var(--bg-glass);
+    backdrop-filter: var(--glass-blur);
+    border: var(--glass-border);
+    padding: 16px 28px;
+    border-radius: var(--radius-lg);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    z-index: 3000;
+    transition: transform var(--transition-normal);
+}
+
+.toast.show {
+    transform: translateX(-50%) translateY(0);
+}
+
+.toast i {
+    color: var(--success-color);
+    font-size: 18px;
+}
+
+/* Voice Recording */
+.voice-recording {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--bg-glass);
+    backdrop-filter: var(--glass-blur);
+    border: 2px solid var(--danger-color);
+    border-radius: var(--radius-xl);
+    padding: 45px 65px;
+    text-align: center;
+    z-index: 2000;
+    display: none;
+}
+
+.voice-recording.show {
+    display: block;
+}
+
+.voice-waves {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    margin-bottom: 22px;
+}
+
+.voice-waves span {
+    width: 6px;
+    height: 35px;
+    background: var(--danger-color);
+    border-radius: var(--radius-full);
+    animation: voiceWave 1s ease-in-out infinite;
+}
+
+.voice-waves span:nth-child(2) { animation-delay: 0.1s; }
+.voice-waves span:nth-child(3) { animation-delay: 0.2s; }
+.voice-waves span:nth-child(4) { animation-delay: 0.3s; }
+.voice-waves span:nth-child(5) { animation-delay: 0.4s; }
+
+@keyframes voiceWave {
+    0%, 100% { height: 12px; }
+    50% { height: 45px; }
+}
+
+.voice-recording p {
+    font-size: 18px;
+    font-weight: 500;
+    margin-bottom: 20px;
+}
+
+.stop-recording-btn {
+    background: var(--danger-color);
+    border: none;
+    color: white;
+    padding: 12px 28px;
+    border-radius: var(--radius-lg);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--bg-hover);
+    border-radius: var(--radius-full);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .landing-nav {
+        padding: 15px 20px;
+    }
+    
+    .nav-links a.nav-link {
+        display: none;
+    }
+    
+    .hero-title {
+        font-size: 36px;
+    }
+    
+    .hero-stats {
+        flex-direction: column;
+        gap: 20px;
+        padding: 30px;
+    }
+    
+    .stat-divider {
+        width: 60px;
+        height: 1px;
+    }
+    
+    .features-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .features-section, .about-section, .languages-section {
+        padding: 60px 20px;
+    }
+    
+    .notice-card {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .sidebar {
+        position: fixed;
+        left: -320px;
+        top: 0;
+        height: 100vh;
+        z-index: 999;
+    }
+
+    .sidebar.open {
+        left: 0;
+    }
+    
+    .mobile-menu-btn {
+        display: flex;
+    }
+    
+    .chat-header {
+        padding-left: 70px;
+    }
+
+    .message {
+        max-width: 95%;
+    }
+
+    .prompts-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .welcome-logo-w {
+        font-size: 60px;
+    }
+    
+    .welcome-title {
+        font-size: 28px;
+    }
+    
+    .coder-notice {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .usage-counter {
+        bottom: 80px;
+        right: 15px;
+        padding: 10px 18px;
+        font-size: 12px;
+    }
+    
+    .keyboard-hints {
+        display: none;
+    }
+    
+    .hero-cta {
+        flex-direction: column;
+    }
+    
+    .topics-list {
+        grid-template-columns: 1fr;
+    }
+}
+    </style>
+</head>
+<body data-theme="dark">
+    
+    <!-- Background Effects -->
+    <div class="wave-background">
+        <div class="wave wave-1"></div>
+        <div class="wave wave-2"></div>
+        <div class="wave wave-3"></div>
+    </div>
+    <div class="particles" id="particles"></div>
+    <div class="glow-orbs">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+    </div>
+    
+    <!-- Landing Page -->
+    <div class="landing-page" id="landingPage">
+        <nav class="landing-nav">
+            <div class="nav-logo">
+                <div class="nav-logo-icon">
+                    <span class="logo-w-text">&lt;/&gt;</span>
+                    <div class="logo-glow"></div>
+                </div>
+                <span class="nav-logo-text">WAVERON <span class="ai-text">A.I</span></span>
+                <span class="codebot-badge">CodeBot</span>
+            </div>
+            <div class="nav-links">
+                <a href="#features" class="nav-link">Features</a>
+                <a href="#languages" class="nav-link">Languages</a>
+                <a href="#about" class="nav-link">About</a>
+                <button class="nav-btn" id="openAppBtn">
+                    <i class="fas fa-rocket"></i>
+                    Launch App
+                </button>
+            </div>
+        </nav>
+        
+        <section class="hero-section">
+            <div class="hero-badge">
+                <i class="fas fa-bolt"></i>
+                <span>AI-Powered Coding Assistant</span>
+            </div>
+            
+            <h1 class="hero-title">
+                <span class="title-line">Your Personal</span>
+                <span class="title-gradient">Code Assistant</span>
+            </h1>
+            
+            <p class="hero-subtitle">
+                Meet <strong>WAVERON A.I</strong> — an intelligent coding companion built 
+                <strong>exclusively for developers</strong>. Write, debug, and optimize code 
+                with the power of AI.
+            </p>
+            
+            <div class="hero-cta">
+                <button class="cta-primary" id="startChatBtn">
+                    <i class="fas fa-code"></i>
+                    Start Coding
+                </button>
+                <button class="cta-secondary" id="exploreFeaturesBtn">
+                    <i class="fas fa-compass"></i>
+                    Explore Features
+                </button>
+            </div>
+            
+            <div class="hero-stats">
+                <div class="stat">
+                    <span class="stat-number">50+</span>
+                    <span class="stat-label">Languages</span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat">
+                    <span class="stat-number">24/7</span>
+                    <span class="stat-label">Available</span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat">
+                    <span class="stat-number">∞</span>
+                    <span class="stat-label">Possibilities</span>
+                </div>
+            </div>
+            
+            <div class="code-preview">
+                <div class="preview-header">
+                    <div class="preview-dots">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                    <span class="preview-title">WAVERON CodeBot</span>
+                </div>
+                <div class="preview-messages">
+                    <div class="preview-msg user">
+                        <span>Write a Python function to reverse a string</span>
+                    </div>
+                    <div class="preview-msg ai">
+                        <div class="ai-avatar">&lt;/&gt;</div>
+                        <div class="code-response">
+                            <span class="response-text">Here's an efficient Python function:</span>
+                            <pre class="preview-code">def reverse_string(s: str) -> str:
+    return s[::-1]
+
+# Example usage
+print(reverse_string("WAVERON"))  # Output: NOREVAW</pre>
+                        </div>
+                    </div>
+                </div>
+                <div class="preview-input">
+                    <span>Ask any coding question...</span>
+                    <i class="fas fa-paper-plane"></i>
+                </div>
+            </div>
+        </section>
+        
+        <section class="features-section" id="features">
+            <h2 class="section-title">Powerful <span class="title-accent">Features</span></h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-code"></i></div>
+                    <h3>Code Generation</h3>
+                    <p>Generate clean, efficient code in 50+ programming languages with best practices.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-bug"></i></div>
+                    <h3>Smart Debugging</h3>
+                    <p>Identify bugs, understand errors, and get step-by-step solutions instantly.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-sitemap"></i></div>
+                    <h3>System Design</h3>
+                    <p>Get help with architecture, design patterns, and scalable system solutions.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-graduation-cap"></i></div>
+                    <h3>Learn & Grow</h3>
+                    <p>Understand concepts with detailed explanations and practical examples.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-search-plus"></i></div>
+                    <h3>Code Review</h3>
+                    <p>Get professional feedback on your code with security and performance tips.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-bolt"></i></div>
+                    <h3>Lightning Fast</h3>
+                    <p>Powered by Groq's ultra-fast inference for instant responses.</p>
+                </div>
+            </div>
+        </section>
+        
+        <section class="languages-section" id="languages">
+            <h2 class="section-title">Supports <span class="title-accent">50+ Languages</span></h2>
+            <div class="languages-grid">
+                <div class="lang-tag"><i class="fab fa-python"></i> Python</div>
+                <div class="lang-tag"><i class="fab fa-js"></i> JavaScript</div>
+                <div class="lang-tag"><i class="fab fa-java"></i> Java</div>
+                <div class="lang-tag"><i class="fab fa-react"></i> React</div>
+                <div class="lang-tag"><i class="fab fa-node-js"></i> Node.js</div>
+                <div class="lang-tag"><i class="fab fa-html5"></i> HTML5</div>
+                <div class="lang-tag"><i class="fab fa-css3-alt"></i> CSS3</div>
+                <div class="lang-tag"><i class="fas fa-database"></i> SQL</div>
+            </div>
+        </section>
+        
+        <section class="notice-section">
+            <div class="notice-card">
+                <div class="notice-icon"><i class="fas fa-info-circle"></i></div>
+                <div class="notice-content">
+                    <h3>🎯 Coding-Only Mode Active</h3>
+                    <p>WAVERON A.I is built exclusively for coding and development. It will not respond to questions about current affairs, news, politics, sports, or entertainment.</p>
+                </div>
+            </div>
+        </section>
+        
+        <section class="about-section" id="about">
+            <h2 class="section-title">About <span class="title-accent">WAVERON</span></h2>
+            <div class="about-content">
+                <p class="about-text">
+                    <strong>WAVERON A.I</strong> is a next-generation coding assistant created by 
+                    <strong>Mr. Dhruv Patav</strong>, a 15-year-old developer passionate about 
+                    making AI accessible to developers worldwide.
+                </p>
+                <div class="tech-stack">
+                    <div class="tech-tag"><i class="fab fa-html5"></i> HTML5</div>
+                    <div class="tech-tag"><i class="fab fa-css3-alt"></i> CSS3</div>
+                    <div class="tech-tag"><i class="fab fa-js"></i> JavaScript</div>
+                    <div class="tech-tag"><i class="fas fa-bolt"></i> Groq API</div>
+                </div>
+            </div>
+        </section>
+        
+        <footer class="landing-footer">
+            <p>Made with ❤️ by Mr. Dhruv Patav | WAVERON A.I v3.1.0</p>
+        </footer>
+    </div>
+    
+    <!-- App Container -->
+    <div class="app-container" id="appContainer">
+        <div class="container">
+            <aside class="sidebar" id="sidebar">
+                <div class="sidebar-header">
+                    <div class="logo">
+                        <div class="logo-w-container">
+                            <span class="logo-w">&lt;/&gt;</span>
+                            <div class="wave-effect"></div>
+                        </div>
+                        <div class="logo-text">
+                            <span class="logo-name">WAVERON</span>
+                            <span class="logo-ai">CodeBot A.I</span>
+                        </div>
+                    </div>
+                    <span class="version-badge">v3.1</span>
+                </div>
+                
+                <button class="new-chat-btn" id="newChatBtn">
+                    <i class="fas fa-plus"></i>
+                    New Code Session
+                </button>
+                
+                <button class="fresh-start-btn" id="freshStartBtn">
+                    <i class="fas fa-sync-alt"></i>
+                    Fresh Start
+                </button>
+                
+                <div class="sidebar-section">
+                    <div class="section-label">
+                        <i class="fas fa-robot"></i>
+                        <span>Coding Mode</span>
+                    </div>
+                    <div class="personality-options" id="personalityOptions">
+                        <button class="personality-btn active" data-personality="coder" title="Code Generator">
+                            <i class="fas fa-code"></i>
+                            <span>Code</span>
+                        </button>
+                        <button class="personality-btn" data-personality="debugger" title="Debug Expert">
+                            <i class="fas fa-bug"></i>
+                            <span>Debug</span>
+                        </button>
+                        <button class="personality-btn" data-personality="architect" title="System Architect">
+                            <i class="fas fa-sitemap"></i>
+                            <span>Arch</span>
+                        </button>
+                        <button class="personality-btn" data-personality="mentor" title="Code Mentor">
+                            <i class="fas fa-graduation-cap"></i>
+                            <span>Mentor</span>
+                        </button>
+                        <button class="personality-btn" data-personality="reviewer" title="Code Reviewer">
+                            <i class="fas fa-search"></i>
+                            <span>Review</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="search-container">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" class="search-input" id="searchInput" placeholder="Search code sessions...">
+                </div>
+                
+                <div class="history-section">
+                    <div class="section-label">
+                        <i class="fas fa-history"></i>
+                        <span>Recent Sessions</span>
+                    </div>
+                    <div class="chat-history" id="chatHistory"></div>
+                </div>
+                
+                <div class="sidebar-section">
+                    <div class="section-label">
+                        <i class="fas fa-palette"></i>
+                        <span>Theme</span>
+                    </div>
+                    <div class="theme-options" id="themeOptions">
+                        <button class="theme-btn active" data-theme="dark" title="Dark"><i class="fas fa-moon"></i></button>
+                        <button class="theme-btn" data-theme="light" title="Light"><i class="fas fa-sun"></i></button>
+                        <button class="theme-btn" data-theme="ocean" title="Ocean"><i class="fas fa-water"></i></button>
+                        <button class="theme-btn" data-theme="purple" title="Purple"><i class="fas fa-gem"></i></button>
+                        <button class="theme-btn" data-theme="midnight" title="Midnight"><i class="fas fa-star"></i></button>
+                    </div>
+                </div>
+                
+                <button class="settings-btn" id="settingsBtn">
+                    <i class="fas fa-cog"></i>
+                    Settings
+                </button>
+                
+                <div class="sidebar-footer">
+                    <div class="footer-brand">WAVERON A.I</div>
+                    <div class="footer-tagline">Built for Coders</div>
+                    <div class="footer-credit">by Mr. Dhruv Patav</div>
+                </div>
+            </aside>
+            
+            <main class="main-content">
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
+                
+                <header class="chat-header">
+                    <div class="header-left">
+                        <div class="header-avatar">&lt;/&gt;</div>
+                        <div class="header-info">
+                            <h2 id="chatTitle">New Code Session</h2>
+                            <div class="header-status">
+                                <span class="status-dot"></span>
+                                <span>CodeBot Online</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="header-actions">
+                        <button class="icon-btn" id="searchChatBtn" title="Search in chat"><i class="fas fa-search"></i></button>
+                        <button class="icon-btn" id="voiceToggleBtn" title="Voice output"><i class="fas fa-volume-up"></i></button>
+                        <button class="icon-btn" id="clearChatBtn" title="Clear chat"><i class="fas fa-trash-alt"></i></button>
+                        <button class="icon-btn" id="downloadChatBtn" title="Download chat"><i class="fas fa-download"></i></button>
+                    </div>
+                </header>
+                
+                <div class="search-chat-bar" id="searchChatBar">
+                    <input type="text" id="searchChatInput" placeholder="Search in conversation...">
+                    <span>0 results</span>
+                    <button id="closeSearchChat"><i class="fas fa-times"></i></button>
+                </div>
+                
+                <div class="chat-container" id="chatContainer">
+                    <div class="welcome-screen" id="welcomeScreen">
+                        <div class="welcome-content">
+                            <div class="welcome-logo-container">
+                                <span class="welcome-logo-w">&lt;/&gt;</span>
+                                <div class="welcome-wave-effect"></div>
+                                <div class="welcome-wave-effect delay-1"></div>
+                                <div class="welcome-wave-effect delay-2"></div>
+                            </div>
+                            
+                            <h1 class="welcome-title">Welcome to <span class="gradient-text">WAVERON A.I</span></h1>
+                            <p class="welcome-subtitle">Your AI-Powered Coding Assistant</p>
+                            <p class="founder-credit">Created by Mr. Dhruv Patav</p>
+                            
+                            <div class="features-row">
+                                <div class="feature-pill"><i class="fas fa-code"></i><span>50+ Languages</span></div>
+                                <div class="feature-pill"><i class="fas fa-bug"></i><span>Smart Debugging</span></div>
+                                <div class="feature-pill"><i class="fas fa-bolt"></i><span>Lightning Fast</span></div>
+                            </div>
+                            
+                            <div class="coder-notice">
+                                <i class="fas fa-info-circle"></i>
+                                <span>This AI is built <strong>exclusively for coders</strong>. It won't respond to current affairs, news, or non-coding topics.</span>
+                            </div>
+                            
+                            <div class="suggested-prompts">
+                                <h3>Quick Start</h3>
+                                <div class="prompts-grid" id="promptsGrid">
+                                    <button class="prompt-btn" data-prompt="Write a Python function to check if a number is prime">
+                                        <i class="fab fa-python"></i>
+                                        <div class="prompt-text">
+                                            <span class="prompt-title">Python Prime Checker</span>
+                                            <span class="prompt-desc">Generate a prime number function</span>
+                                        </div>
+                                        <i class="fas fa-arrow-right prompt-arrow"></i>
+                                    </button>
+                                    <button class="prompt-btn" data-prompt="Create a responsive navbar with HTML and CSS">
+                                        <i class="fab fa-html5"></i>
+                                        <div class="prompt-text">
+                                            <span class="prompt-title">Responsive Navbar</span>
+                                            <span class="prompt-desc">HTML/CSS navigation component</span>
+                                        </div>
+                                        <i class="fas fa-arrow-right prompt-arrow"></i>
+                                    </button>
+                                    <button class="prompt-btn" data-prompt="Write a JavaScript function to debounce API calls">
+                                        <i class="fab fa-js"></i>
+                                        <div class="prompt-text">
+                                            <span class="prompt-title">Debounce Function</span>
+                                            <span class="prompt-desc">Optimize API call performance</span>
+                                        </div>
+                                        <i class="fas fa-arrow-right prompt-arrow"></i>
+                                    </button>
+                                    <button class="prompt-btn" data-prompt="Explain how async/await works in JavaScript with examples">
+                                        <i class="fas fa-graduation-cap"></i>
+                                        <div class="prompt-text">
+                                            <span class="prompt-title">Learn Async/Await</span>
+                                            <span class="prompt-desc">Understand asynchronous JS</span>
+                                        </div>
+                                        <i class="fas fa-arrow-right prompt-arrow"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="messages" id="messagesContainer"></div>
+                </div>
+                
+                <div class="input-area">
+                    <div class="input-container">
+                        <button class="voice-input-btn" id="voiceInputBtn" title="Voice input">
+                            <i class="fas fa-microphone"></i>
+                        </button>
+                        <textarea class="user-input" id="userInput" placeholder="Ask any coding question... (No current affairs)" rows="1"></textarea>
+                        <button class="send-btn" id="sendBtn" title="Send message">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                    <div class="input-footer">
+                        <div class="input-info">
+                            <span class="powered-by">Powered by</span>
+                            <span class="groq-badge">Groq + LLaMA 3.3</span>
+                        </div>
+                        <div class="keyboard-hints">
+                            <span><kbd>Enter</kbd> to send</span>
+                            <span><kbd>Shift + Enter</kbd> new line</span>
+                            <span><kbd>?</kbd> shortcuts</span>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+    
+    <!-- Modals -->
+    <div class="limit-popup" id="limitPopup">
+        <div class="limit-popup-content">
+            <div class="limit-icon"><i class="fas fa-exclamation-triangle"></i></div>
+            <div class="limit-text">
+                <span>Messages remaining</span>
+                <span class="limit-count" id="limitCount">5</span>
+            </div>
+        </div>
+    </div>
+    
+    <div class="limit-modal" id="limitModal">
+        <div class="limit-modal-content">
+            <div class="limit-modal-icon"><i class="fas fa-hourglass-end"></i></div>
+            <h2>Daily Limit Reached</h2>
+            <p>You've used all 50 messages for today.</p>
+            <p>Your limit will reset in:</p>
+            <div class="limit-timer">
+                <i class="fas fa-clock"></i>
+                <span id="countdownTimer">00:00:00</span>
+            </div>
+            <button class="limit-modal-btn" id="closeLimitModal"><i class="fas fa-check"></i> Got it</button>
+        </div>
+    </div>
+    
+    <div class="blocked-modal" id="blockedModal">
+        <div class="blocked-modal-content">
+            <div class="blocked-modal-icon"><i class="fas fa-ban"></i></div>
+            <h2>Topic Not Supported</h2>
+            <p>I'm <strong>WAVERON A.I</strong>, built exclusively for <strong>coders and developers</strong>.</p>
+            <div class="supported-topics">
+                <h4><i class="fas fa-check-circle"></i> What I CAN help with:</h4>
+                <div class="topics-list">
+                    <span><i class="fas fa-check"></i> Code generation</span>
+                    <span><i class="fas fa-check"></i> Debugging</span>
+                    <span><i class="fas fa-check"></i> Algorithms</span>
+                    <span><i class="fas fa-check"></i> System design</span>
+                </div>
+            </div>
+            <button class="blocked-modal-btn" id="closeBlockedModal"><i class="fas fa-code"></i> Ask a coding question</button>
+        </div>
+    </div>
+    
+    <div class="settings-modal" id="settingsModal">
+        <div class="settings-content">
+            <div class="settings-header">
+                <h2><i class="fas fa-cog"></i> Settings</h2>
+                <button class="close-settings" id="closeSettings"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="settings-body">
+                <div class="settings-group">
+                    <div class="settings-group-title"><i class="fas fa-brain"></i> AI Model</div>
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <span class="setting-label">Model</span>
+                            <span class="setting-desc">Select AI model</span>
+                        </div>
+                        <select class="setting-select" id="modelSelect">
+                            <option value="llama-3.3-70b-versatile">LLaMA 3.3 70B</option>
+                            <option value="llama-3.1-8b-instant">LLaMA 3.1 8B (Fast)</option>
+                            <option value="mixtral-8x7b-32768">Mixtral 8x7B</option>
+                        </select>
+                    </div>
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <span class="setting-label">Temperature</span>
+                            <span class="setting-desc">Creativity level</span>
+                        </div>
+                        <div class="slider-container">
+                            <input type="range" class="setting-slider" id="temperatureSlider" min="0" max="100" value="70">
+                            <span class="slider-value" id="temperatureValue">0.7</span>
+                        </div>
+                    </div>
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <span class="setting-label">Max Tokens</span>
+                            <span class="setting-desc">Maximum response length</span>
+                        </div>
+                        <select class="setting-select" id="maxTokensSelect">
+                            <option value="2048">2048 (Short)</option>
+                            <option value="4096" selected>4096 (Medium)</option>
+                            <option value="8192">8192 (Long)</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="settings-group">
+                    <div class="settings-group-title"><i class="fas fa-desktop"></i> Interface</div>
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <span class="setting-label">Typing Effect</span>
+                            <span class="setting-desc">Animate AI responses</span>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="typingEffectToggle" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <span class="setting-label">Particles</span>
+                            <span class="setting-desc">Background effects</span>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="particlesToggle" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <span class="setting-label">Fresh Start on Reload</span>
+                            <span class="setting-desc">Clear session when page reloads</span>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="freshStartToggle">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <span class="setting-label">Always Show Landing</span>
+                            <span class="setting-desc">Show landing page on every visit</span>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="alwaysLandingToggle">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                </div>
+                <div class="settings-group">
+                    <div class="settings-group-title"><i class="fas fa-database"></i> Data Management</div>
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <span class="setting-label">Clear All Data</span>
+                            <span class="setting-desc">Delete all sessions and settings</span>
+                        </div>
+                        <button class="danger-btn" id="clearAllDataBtn"><i class="fas fa-trash-alt"></i> Clear All</button>
+                    </div>
+                </div>
+            </div>
+            <div class="settings-footer">WAVERON A.I v3.1.0 | Created by Mr. Dhruv Patav</div>
+        </div>
+    </div>
+    
+    <div class="shortcuts-modal" id="shortcutsModal">
+        <div class="shortcuts-content">
+            <div class="shortcuts-header">
+                <h2><i class="fas fa-keyboard"></i> Keyboard Shortcuts</h2>
+                <button class="close-shortcuts" id="closeShortcuts"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="shortcuts-list">
+                <div class="shortcut-item"><kbd>Ctrl + N</kbd><span>New code session</span></div>
+                <div class="shortcut-item"><kbd>Ctrl + S</kbd><span>Download chat</span></div>
+                <div class="shortcut-item"><kbd>Ctrl + F</kbd><span>Search in chat</span></div>
+                <div class="shortcut-item"><kbd>Escape</kbd><span>Close modal</span></div>
+                <div class="shortcut-item"><kbd>?</kbd><span>Show shortcuts</span></div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="toast" id="toast">
+        <i class="fas fa-check-circle"></i>
+        <span id="toastMessage">Action completed!</span>
+    </div>
+    
+    <div class="voice-recording" id="voiceRecording">
+        <div class="voice-waves">
+            <span></span><span></span><span></span><span></span><span></span>
+        </div>
+        <p>Listening...</p>
+        <button class="stop-recording-btn" id="stopRecordingBtn"><i class="fas fa-stop"></i> Stop</button>
+    </div>
+    
+    <div class="usage-counter" id="usageCounter">
+        <i class="fas fa-chart-pie"></i>
+        <span id="usageText">50 left</span>
+    </div>
+    
+    <!-- Loading Order Fix -->
+    <script src="config.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
+}
