@@ -1,6 +1,6 @@
 // ══════════════════════════════════════════════════════════════
 // SERVER.JS - WAVERON A.I CODEBOT
-// Created by Mr. Dhruv Patav
+// Created by Dhruv Patav & Jay Patil
 // Features: 7-day free trial + ₹29/month unlock system
 // ══════════════════════════════════════════════════════════════
 
@@ -76,7 +76,7 @@ app.post('/api/unlock', (req, res) => {
     if (!fingerprint || !password) return res.json({ success: false, message: 'Missing data.' });
 
     if (password.trim().toUpperCase() !== PAYMENT_PASSWORD.toUpperCase()) {
-        return res.json({ success: false, message: 'Wrong code. Pay ₹29 and contact Mr. Dhruv Patav for the correct code.' });
+        return res.json({ success: false, message: 'Wrong code. Pay ₹29 and contact Dhruv Patav & Jay Patil for the correct code.' });
     }
 
     const user = getUser(fingerprint);
